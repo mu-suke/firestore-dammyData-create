@@ -1,2 +1,2 @@
 # firestore-dammyData-create
-firestoreのダミーデータ作成用スクリプト
+firestoreのダミー用データ作成スクリプト
