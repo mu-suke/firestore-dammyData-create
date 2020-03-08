@@ -35,6 +35,7 @@ let setSf = store.set({
   createdAt: admin.firestore.Timestamp.fromDate(new Date(`2018/11/10 ${Math.floor(Math.random() * (TIME_CONST.MAX + 1 - TIME_CONST.MIN) + TIME_CONST.MIN)}:00:00`)),
 });
 
+// TODO: 以下の名前に該当するコレクションのみにデータを追加
 const storeList = [
   'hogehoge',
   'fugafuga',
