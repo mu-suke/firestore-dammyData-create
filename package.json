@@ -1,0 +1,23 @@
+{
+  "name": "firestore-dammydata-create",
+  "version": "1.0.0",
+  "description": "firestoreのダミー用データ作成スクリプト",
+  "main": "main.js",
+  "dependencies": {
+    "firebase-admin": "^8.9.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mu-suke/firestore-dammyData-create.git"
+  },
+  "author": "mu-suke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mu-suke/firestore-dammyData-create/issues"
+  },
+  "homepage": "https://github.com/mu-suke/firestore-dammyData-create#readme"
+}
