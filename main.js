@@ -17,7 +17,6 @@ db.collection('stores/v1/store1').get()
       console.log('Error getting documents', err);
     });
 
-let store = db.collection('stores').doc();
 
 const QUANTITY_CONST = {
   MIN: 5,
@@ -42,10 +41,12 @@ const storeList = [
   'piyopiyo',
 ];
 
+let store = db.collection('stores');
 
 // ここからstoreNameのクエリ
-storeList.forEach(store => {
-  db.collection('stores').where('storeName', '==', store).get()
+// TODO: 該当クエリにダミーデータを挿入
+storeList.forEach(storeName => {
+  db.collection('stores').where('storeName', '==', storeName).get()
       .then(snapshot => {
         if(snapshot.empty) {
           console.log('No matching documents.');
@@ -53,10 +54,22 @@ storeList.forEach(store => {
         }
         snapshot.forEach(doc => {
           console.log(doc.id, '=>', doc.data());
+          db.collection('stores').doc(doc.id).listCollections()
+            .then(collections => {
+              if(collections.empty) {
+                console.log('No matching collections.');
+                return;
+              }
+              collections.forEach(collection => {
+                console.log('Found subcollection with id:', collection.id)
+              })
+            })
+            .catch(err => {
+              console.log('error getting collection', err);
+            });
         });
       })
       .catch(err => {
         console.log('error getting documents', err);
       });
 });
-
