@@ -30,10 +30,10 @@ const TIME_CONST = {
 }
 
 // TODO: ここを修正
-let setSf = store.set({
-  quantity: Math.floor(Math.random() * (QUANTITY_CONST.MAX + 1 - QUANTITY_CONST.MIN)) + QUANTITY_CONST.MIN,
-  createdAt: admin.firestore.Timestamp.fromDate(new Date(`2018/11/10 ${Math.floor(Math.random() * (TIME_CONST.MAX + 1 - TIME_CONST.MIN) + TIME_CONST.MIN)}:00:00`)),
-});
+// let setSf = store.set({
+//   quantity: Math.floor(Math.random() * (QUANTITY_CONST.MAX + 1 - QUANTITY_CONST.MIN)) + QUANTITY_CONST.MIN,
+//   createdAt: admin.firestore.Timestamp.fromDate(new Date(`2018/11/10 ${Math.floor(Math.random() * (TIME_CONST.MAX + 1 - TIME_CONST.MIN) + TIME_CONST.MIN)}:00:00`)),
+// });
 
 // TODO: 以下の名前に該当するコレクションのみにデータを追加
 const storeList = [
@@ -42,4 +42,21 @@ const storeList = [
   'piyopiyo',
 ];
 
+
+// ここからstoreNameのクエリ
+storeList.forEach(store => {
+  db.collection('stores').where('storeName', '==', store).get()
+      .then(snapshot => {
+        if(snapshot.empty) {
+          console.log('No matching documents.');
+          return;
+        }
+        snapshot.forEach(doc => {
+          console.log(doc.id, '=>', doc.data());
+        });
+      })
+      .catch(err => {
+        console.log('error getting documents', err);
+      });
+});
 
