@@ -61,7 +61,12 @@ storeList.forEach(storeName => {
                 return;
               }
               collections.forEach(collection => {
-                console.log('Found subcollection with id:', collection.id)
+                console.log('Found subcollection with id:', collection.id);
+                // TODO: async awaitを実装する
+                // db.collection(`stores/${doc.id}/${collection.id}`).set({
+                //   quantity: Math.floor(Math.random() * (QUANTITY_CONST.MAX + 1 - QUANTITY_CONST.MIN)) + QUANTITY_CONST.MIN,
+                //   createdAt: admin.firestore.Timestamp.fromDate(new Date(`2018/11/10 ${Math.floor(Math.random() * (TIME_CONST.MAX + 1 - TIME_CONST.MIN) + TIME_CONST.MIN)}:00:00`)),
+                // });
               })
             })
             .catch(err => {
