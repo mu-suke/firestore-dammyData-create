@@ -17,12 +17,12 @@ db.collection('stores/v1/store1').get()
       console.log('Error getting documents', err);
     });
 
-
+// ランダムに生成する売り上げ個数の範囲
 const QUANTITY_CONST = {
   MIN: 5,
   MAX: 10,
 };
-
+// ランダムに生成する時間の範囲
 const TIME_CONST = {
   MIN: 10,
   MAX: 17,
@@ -35,17 +35,26 @@ const TIME_CONST = {
 // });
 
 // TODO: 以下の名前に該当するコレクションのみにデータを追加
-const storeList = [
-  'hogehoge',
-  'fugafuga',
-  'piyopiyo',
+const storeAndQuantityDataList = [
+  {
+    name: 'hogehoge',
+    quantity: 3,
+  },
+  {
+    name: 'fugafuga',
+    quantity: 3,
+  },
+  {
+    name: 'piyopiyo',
+    quantity: 3,
+  },
 ];
 
 let store = db.collection('stores');
 
 // ここからstoreNameのクエリ
 // TODO: 該当クエリにダミーデータを挿入
-storeList.forEach(storeName => {
+storeAndQuantityDataList.forEach((storeName, quantity) => {
   db.collection('stores').where('storeName', '==', storeName).get()
       .then(snapshot => {
         if(snapshot.empty) {
@@ -67,6 +76,7 @@ storeList.forEach(storeName => {
                 //   quantity: Math.floor(Math.random() * (QUANTITY_CONST.MAX + 1 - QUANTITY_CONST.MIN)) + QUANTITY_CONST.MIN,
                 //   createdAt: admin.firestore.Timestamp.fromDate(new Date(`2018/11/10 ${Math.floor(Math.random() * (TIME_CONST.MAX + 1 - TIME_CONST.MIN) + TIME_CONST.MIN)}:00:00`)),
                 // });
+                // db.collection(`stores/${doc.id}/${collection.id}`).get().then(target => {console.log('target is '+JSON.stringify(target.data))});
               })
             })
             .catch(err => {
