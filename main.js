@@ -50,12 +50,12 @@ const storeAndQuantityDataList = [
   },
 ];
 
-let store = db.collection('stores');
+const store = db.collection('stores');
 
 // ここからstoreNameのクエリ
 // TODO: 該当クエリにダミーデータを挿入
-storeAndQuantityDataList.forEach((storeName, quantity) => {
-  db.collection('stores').where('storeName', '==', storeName).get()
+storeAndQuantityDataList.forEach((storeData) => {
+  store.where('storeName', '==', storeData.name).get()
       .then(snapshot => {
         if(snapshot.empty) {
           console.log('No matching documents.');
@@ -63,7 +63,7 @@ storeAndQuantityDataList.forEach((storeName, quantity) => {
         }
         snapshot.forEach(doc => {
           console.log(doc.id, '=>', doc.data());
-          db.collection('stores').doc(doc.id).listCollections()
+          store.doc(doc.id).listCollections()
             .then(collections => {
               if(collections.empty) {
                 console.log('No matching collections.');
