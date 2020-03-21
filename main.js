@@ -72,10 +72,8 @@ storeAndQuantityDataList.forEach((storeData) => {
                 return;
               }
               collections.forEach(collection => {
-                db.collection(`stores/${doc.id}/${collection.id}`).add({
-                  quantity: Math.floor(Math.random() * (QUANTITY_CONST.MAX + 1 - QUANTITY_CONST.MIN)) + QUANTITY_CONST.MIN,
-                  createdAt: admin.firestore.Timestamp.fromDate(new Date(`2018/11/10 ${Math.floor(Math.random() * (TIME_CONST.MAX + 1 - TIME_CONST.MIN) + TIME_CONST.MIN)}:00:00`)),
-                });
+                console.log('Found subcollection with id:', collection.id);
+
                 sample(doc, collection).then(result => {
                   console.log(result);
                 });
@@ -106,3 +104,17 @@ data && Object.keys(data).forEach(key => {
       });
 });
 
+function sampleResolve(doc, coll) {
+  return new Promise(resolve => {
+    db.collection(`stores/${doc.id}/${coll.id}`).add({
+      quantity: Math.floor(Math.random() * (QUANTITY_CONST.MAX + 1 - QUANTITY_CONST.MIN)) + QUANTITY_CONST.MIN,
+      createdAt: admin.firestore.Timestamp.fromDate(new Date(`2018/11/10 ${Math.floor(Math.random() * (TIME_CONST.MAX + 1 - TIME_CONST.MIN) + TIME_CONST.MIN)}:00:00`)),
+    });
+    resolve("success!");
+  })
+}
+
+async function sample(doc, coll) {
+  const result = await sampleResolve(doc, coll);
+  return result;
+}
